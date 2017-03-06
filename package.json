@@ -1,0 +1,46 @@
+{
+  "name": "audibly",
+  "version": "1.0.0",
+  "description": "An easy to use and powerful Web Audio API wrapper for controlling audio on the web",
+  "author": "Craig Harvie <craig@craigharvie.me>",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Craig Harvie",
+      "email": "craig@craigharvie.me"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/craigharvi3/audibly"
+  },
+  "bugs": {
+    "url": "https://github.com/craigharvi3/audibly/issues"
+  },
+  "keywords": [
+    "audibly",
+    "audio",
+    "web-audio-api",
+    "javascript",
+    "js"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "del": "^2.2.0",
+    "eslint": "^2.0.0",
+    "eslint-loader": "^1.2.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-uglify": "^2.0.1",
+    "gulp-webpack": "^1.5.0",
+    "jasmine": "^2.4.1",
+    "json-loader": "^0.5.4",
+    "webpack": "^1.12.13"
+  }
+}
