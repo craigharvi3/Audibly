@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="description" content="An easy to use and powerful Web Audio API wrapper for controlling audio on the web" />
     <meta name="keywords" content="audio,web-audio-api,javascript,js,audibly" />
-    <title>audibly | An easy to use and powerful Web Audio API wrapper for controlling audio on the web</title>
+    <title>Audibly | An easy to use and powerful Web Audio API wrapper for controlling audio on the web</title>
     <link rel="stylesheet" type="text/css" href="/css/audibly.css">
 </head>
 <body class="">
@@ -15,5 +15,32 @@
         </a>
     </header>
     <script type="text/javascript" src="/js/audibly.js"></script>
+    <script type="text/javascript">
+        
+        var audio = [
+            {
+                id: 1,
+                url: '/audio/music-loop.wav'
+            }
+        ];
+
+        var audiblyObj = new Audibly({
+            audio: audio,
+            callback: function() {
+                var node = this.getSourceNode(1).node;
+                node.start(0);
+                setTimeout(function() {
+                    node.stop();
+                    node.loop = false;
+                }, 2000 );
+                setTimeout(function() {
+                    node.start(0);
+                }, 4000 );
+            }
+        });
+
+        console.log(audiblyObj);
+
+    </script>
 </body>
 </html>
