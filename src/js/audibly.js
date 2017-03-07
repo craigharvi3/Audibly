@@ -4,10 +4,20 @@
  */
 
 
-import AudiblyContext from 'modules/Audibly/Context';
-import Downloader from 'modules/Downloader';
+import AudiblyContext from 'API/Audibly/AudiblyContext';
+import Downloader from 'API/Downloader';
+import AudiblyNode from 'API/Audibly/Node/AudiblyNode';
+import AudiblyAudioBufferSourceNode from 'API/Audibly/Node/Source/AudiblyAudioBufferSourceNode';
+import AudiblyOscillatorNode from 'API/Audibly/Node/Source/AudiblyOscillatorNode';
+import AudiblyBiquadFilterNode from 'API/Audibly/Node/Filter/AudiblyBiquadFilterNode';
+import AudiblyConvolverNode from 'API/Audibly/Node/Filter/AudiblyConvolverNode';
 
-
+window.AudiblyContext = new AudiblyContext();
+window.AudiblyNode = AudiblyNode;
+window.AudiblyAudioBufferSourceNode = AudiblyAudioBufferSourceNode;
+window.AudiblyOscillatorNode = AudiblyOscillatorNode;
+window.AudiblyBiquadFilterNode = AudiblyBiquadFilterNode;
+window.AudiblyConvolverNode = AudiblyConvolverNode;
 window.Audibly = class Audibly {
 
 
@@ -17,11 +27,11 @@ window.Audibly = class Audibly {
    */
 	constructor( options={} ) {
 
+
 		// Setup variables
 		this.options = options;
-		this.context = new AudiblyContext();
 		this.buffers = {};
-		this.sources = {};
+
 
 		// Process options
 		this.options = Object.assign( {
@@ -29,10 +39,12 @@ window.Audibly = class Audibly {
 			callback: () => {}
 		}, options );
 
+
 		// Download any audio we have
 		if ( this.options.audio.length ) {
 			new Downloader( this, this.options.callback.bind( this ) );
 		}
+
 
 		return this;
 	}
@@ -42,8 +54,11 @@ window.Audibly = class Audibly {
    * Gets a source node
    * @param {string} id
    */
-	getSourceNode( id ) {
-		return this.sources[ id ];
+	getBufferNode( id ) {
+		return this.buffers[ id ];
 	}
 
+
 };
+
+

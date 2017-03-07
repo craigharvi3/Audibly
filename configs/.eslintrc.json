@@ -19,7 +19,7 @@
 		"block-spacing": [ 2, "always"], // Fixable
 		"brace-style": [ 2, "1tbs", { "allowSingleLine": false } ],
 		"comma-spacing": [ 2, {"before": false, "after": true} ], // Fixable
-		"complexity": [ 2, 8 ],
+		// "complexity": [ 2, 8 ],
 		"computed-property-spacing": [ 2, "always" ], // Fixable
 		"consistent-this": [ 2, "self" ],
 		"eol-last": [2], // Fixable

@@ -4,8 +4,7 @@
  * @author Craig Harvie <craig@craigharvie.me>
  */
 
-import AudiblySource from 'modules/Audibly/Source';
-import Exception from 'modules/Exception';
+import Exception from 'API/Exception';
 
 export default class Downloader {
 
@@ -36,7 +35,7 @@ export default class Downloader {
 
 			request.onload = () => {
 				// Asynchronously decode the audio file data in request.response
-				this.audibly.context.decodeAudioData( request.response, this.success.bind( this, this.audibly.options.audio[ i ].id ), this.error );
+				window.AudiblyContext.decodeAudioData( request.response, this.success.bind( this, this.audibly.options.audio[ i ].id ), this.error );
 			};
 
 			request.onerror = () => {
@@ -54,7 +53,9 @@ export default class Downloader {
    */
 	success( id, buffer ) {
 		this.audibly.buffers[ id ] = buffer;
-		this.audibly.sources[ id ] = new AudiblySource( this.audibly.context, buffer );
+		// this.audibly.sources[ id ] = new AudiblyAudioBufferSourceNode( {
+		// 	buffer: buffer
+		// } );
 		if ( ++this.count === this.audibly.options.audio.length ) {
 			this.complete();
 		}
