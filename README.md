@@ -5,3 +5,12 @@ An easy to use and powerful Web Audio API OO wrapper for controlling audio on th
 https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
 
 Audibly looks to take all the wonderfullness that the Web Audio API offers and abstract it into a more intuitive and user friendly API.
+
+### API
+Please see our JSDocs [here](http://craigharvie.me/Audibly/jsdocs/)
+
+### Documentation
+Coming soon...
+
+### Examples
+Coming soon...
