@@ -75,7 +75,7 @@ gulp.task('nanocss', [ 'sass' ], function() {
 
 // CSS task
 gulp.task('css', [  ], function() {
-	gulp.watch( 'src/scss/**/*.scss', [ 'sass' ] );
+	gulp.watch( 'src/sass/**/*.scss', [ 'sass' ] );
 });
 
 

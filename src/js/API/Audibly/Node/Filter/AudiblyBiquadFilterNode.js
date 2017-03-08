@@ -16,7 +16,7 @@ import Exception from '../../../Exception';
 // Accepted options
 const TYPE_VALUES = [ 'lowpass', 'highpass', 'bandpass', 'lowshelf', 'highshelf', 'peaking', 'notch', 'allpass' ];
 
-export default class AudiblyBiquadFilterNode extends AudiblyNode {
+class AudiblyBiquadFilterNode extends AudiblyNode {
 
 
 	/**
@@ -71,3 +71,5 @@ export default class AudiblyBiquadFilterNode extends AudiblyNode {
 
 
 }
+
+module.exports = AudiblyBiquadFilterNode;

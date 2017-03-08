@@ -2,7 +2,7 @@
  * Class representing an Exception
  * @author Craig Harvie <craig@craigharvie.me>
  */
-export default class Exception {
+class Exception {
 
 
 	/**
@@ -21,3 +21,6 @@ export default class Exception {
 
 
 }
+
+
+module.exports = Exception;

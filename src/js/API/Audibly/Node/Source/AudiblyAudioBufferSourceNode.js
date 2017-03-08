@@ -12,7 +12,7 @@
 import AudiblyNode from '../AudiblyNode';
 import Exception from '../../../Exception';
 
-export default class AudiblyAudioBufferSourceNode extends AudiblyNode {
+class AudiblyAudioBufferSourceNode extends AudiblyNode {
 
 
 	/**
@@ -61,3 +61,6 @@ export default class AudiblyAudioBufferSourceNode extends AudiblyNode {
 
 
 }
+
+
+module.exports = AudiblyAudioBufferSourceNode;

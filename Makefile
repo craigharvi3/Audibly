@@ -13,3 +13,6 @@ dev:
 deploy:
 	echo Building assets. Please wait...
 	node_modules/gulp/bin/gulp.js deploy
+
+jsdocs:
+	node_modules/.bin/jsdoc src/js -r -c configs/jsdocs.json -d jsdocs

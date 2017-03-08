@@ -3,10 +3,9 @@
  * Download raw audio files
  * @author Craig Harvie <craig@craigharvie.me>
  */
-
 import Exception from 'API/Exception';
 
-export default class Downloader {
+class Downloader {
 
 
 	/**
@@ -71,3 +70,6 @@ export default class Downloader {
 
 
 }
+
+
+module.exports = Downloader;

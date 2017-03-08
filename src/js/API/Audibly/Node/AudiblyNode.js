@@ -12,7 +12,7 @@
 
 import Exception from '../../Exception';
 
-export default class AudiblyNode {
+class AudiblyNode {
 
 
 	/**
@@ -20,7 +20,6 @@ export default class AudiblyNode {
    * @param {object} options
    */
 	constructor( options, node ) {
-		this.options = options;
 		this.node = node;
 		return this;
 	}
@@ -32,11 +31,8 @@ export default class AudiblyNode {
    */
 	connect( destination=window.AudiblyContext.destination ) {
 		try {
-			if ( destination.node ) {
-				this.node.connect( destination.node );
-				return;
-			}
 			this.node.connect( destination );
+			return this;
 		} catch ( e ) {
 			throw new Exception( 'AudiblyNodeException', 'Unable to connect this node to destination. Please recreate the node and try again.', e );
 		}
@@ -69,3 +65,5 @@ export default class AudiblyNode {
 
 
 }
+
+module.exports = AudiblyNode;

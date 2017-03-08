@@ -11,6 +11,11 @@ import AudiblyAudioBufferSourceNode from 'API/Audibly/Node/Source/AudiblyAudioBu
 import AudiblyOscillatorNode from 'API/Audibly/Node/Source/AudiblyOscillatorNode';
 import AudiblyBiquadFilterNode from 'API/Audibly/Node/Filter/AudiblyBiquadFilterNode';
 import AudiblyConvolverNode from 'API/Audibly/Node/Filter/AudiblyConvolverNode';
+import AudiblyDelayNode from 'API/Audibly/Node/Filter/AudiblyDelayNode';
+import AudiblyDynamicsCompressorNode from 'API/Audibly/Node/Filter/AudiblyDynamicsCompressorNode';
+import AudiblyGainNode from 'API/Audibly/Node/Filter/AudiblyGainNode';
+import AudiblyStereoPannerNode from 'API/Audibly/Node/Filter/AudiblyStereoPannerNode';
+import AudiblyWaveShaperNode from 'API/Audibly/Node/Filter/AudiblyWaveShaperNode';
 
 window.AudiblyContext = new AudiblyContext();
 window.AudiblyNode = AudiblyNode;
@@ -18,6 +23,11 @@ window.AudiblyAudioBufferSourceNode = AudiblyAudioBufferSourceNode;
 window.AudiblyOscillatorNode = AudiblyOscillatorNode;
 window.AudiblyBiquadFilterNode = AudiblyBiquadFilterNode;
 window.AudiblyConvolverNode = AudiblyConvolverNode;
+window.AudiblyDelayNode = AudiblyDelayNode;
+window.AudiblyDynamicsCompressorNode = AudiblyDynamicsCompressorNode;
+window.AudiblyGainNode = AudiblyGainNode;
+window.AudiblyStereoPannerNode = AudiblyStereoPannerNode;
+window.AudiblyWaveShaperNode = AudiblyWaveShaperNode;
 window.Audibly = class Audibly {
 
 

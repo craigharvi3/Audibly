@@ -14,7 +14,7 @@
 
 import Exception from '../Exception';
 
-export default class AudiblyContext {
+class AudiblyContext {
 
 
 	/**
@@ -34,3 +34,5 @@ export default class AudiblyContext {
 	}
 
 }
+
+module.exports = AudiblyContext;

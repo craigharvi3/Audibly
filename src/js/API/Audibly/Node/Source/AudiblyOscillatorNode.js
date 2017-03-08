@@ -15,7 +15,7 @@ import Exception from '../../../Exception';
 // Accepted options
 const TYPE_VALUES = [ 'sine', 'square', 'sawtooth', 'triangle' ];
 
-export default class AudiblyOscillatorNode extends AudiblyNode {
+class AudiblyOscillatorNode extends AudiblyNode {
 
 
 	/**
@@ -79,3 +79,6 @@ export default class AudiblyOscillatorNode extends AudiblyNode {
 	}
 
 }
+
+
+module.exports = AudiblyOscillatorNode;

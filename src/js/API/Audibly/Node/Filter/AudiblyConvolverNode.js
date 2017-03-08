@@ -12,7 +12,7 @@
 import AudiblyNode from '../AudiblyNode';
 import Exception from '../../../Exception';
 
-export default class AudiblyConvolverNode extends AudiblyNode {
+class AudiblyConvolverNode extends AudiblyNode {
 
 
 	/**
@@ -44,3 +44,5 @@ export default class AudiblyConvolverNode extends AudiblyNode {
 
 
 }
+
+module.exports = AudiblyConvolverNode;
