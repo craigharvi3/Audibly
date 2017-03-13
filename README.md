@@ -41,6 +41,26 @@ new Audibly.BufferSource({
 
 The `BufferSource` will return a promise - since it performs a http request to fetch the raw audio data. The promise success callback will return you the node to use - as shown [here](http://craigharvie.me/audibly/demo/) in the demo.
 
+### Building source
+Clone the repo and perform the following commands inside the audibly directory:
+
+*Install node modules*
+```
+make install
+```
+
+*Build assets (also performs watch)*
+```
+make dev
+```
+
+*Fire up dev server*
+```
+make serve
+```
+
+Your server will be up and running at [http://localhost:8080/](http://localhost:8080/)
+
 ### Issues
 We very much welcome collaborators so if you see any issues, file an issue [here](https://github.com/craigharvi3/audibly/issues) or create a PR and we'll review.
 
