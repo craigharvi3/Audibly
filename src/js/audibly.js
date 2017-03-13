@@ -4,6 +4,7 @@
  */
 
 
+import 'extlibs/prism';
 import AudiblyContext from 'API/Audibly/AudiblyContext';
 import Downloader from 'API/Downloader';
 import AudiblyNode from 'API/Audibly/Node/AudiblyNode';

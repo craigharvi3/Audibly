@@ -16,40 +16,67 @@ class AudiblyAudioBufferSourceNode extends AudiblyNode {
 
 
 	/**
-   * Create an AudiblyAudioBufferSourceNode instance.
-   * @param {object} options
-   */
+	 * Create an AudiblyAudioBufferSourceNode instance.
+	 * @param {object} options
+	 */
 	constructor( options={} ) {
 
-		// Buffer source node
 		let node = window.AudiblyContext.createBufferSource();
-
-		// Check options
-		if ( options.playbackRate ) {
-			if ( options.playbackRate < node.playbackRate.minValue || options.playbackRate > node.playbackRate.maxValue ) {
-				throw new Exception( 'AudiblyAudioBufferSourceNode', `Invalid 'playbackRate' option passed in. This value must be between ${node.playbackRate.minValue} and ${node.playbackRate.maxValue}.` );
-			}
-			node.playbackRate.value = options.playbackRate;
-		}
-
-		if ( options.buffer ) {
-			node.buffer = options.buffer;
-		}
-
-		if ( options.loop ) {
-			node.loop = options.loop;
-		}
 
 		super( options, node );
 
-		return this;
+		if ( !options.url ) {
+			return this;
+		}
+
+		// We'll return a promise from the constructor
+		let promise = new Promise( ( resolve, reject ) => {
+
+			// Make http request to parse audio file
+			var request = new XMLHttpRequest();
+			request.open( 'GET', options.url, true );
+			request.responseType = 'arraybuffer';
+
+			request.onload = () => {
+
+				window.AudiblyContext.decodeAudioData( request.response )
+					.then( ( decodedData ) => {
+
+						this.node.buffer = decodedData;
+
+						// Set options if provided
+						if ( options.playbackRate ) {
+							if ( options.playbackRate < node.playbackRate.minValue || options.playbackRate > node.playbackRate.maxValue ) {
+								throw new Exception( 'AudiblyAudioBufferSourceNode', `Invalid 'playbackRate' option passed in. This value must be between ${node.playbackRate.minValue} and ${node.playbackRate.maxValue}.` );
+							}
+							this.node.playbackRate.value = options.playbackRate;
+						}
+
+						if ( options.loop ) {
+							this.node.loop = options.loop;
+						}
+
+						// All good, resolve
+						resolve( this );
+					} );
+			};
+
+			request.onerror = ( e ) => {
+				reject( { error: e } );
+			};
+
+			request.send();
+
+		} );
+
+		return promise;
 	}
 
 
 	/**
-   * Updates the playback rate of the node
-   * @param {number} value - range from 0 - 5
-   */
+	 * Updates the playback rate of the node
+	 * @param {number} value - range from 0 - 5
+	 */
 	setPlaybackRate( value=1 ) {
 
 		if ( value < this.node.playbackRate.minValue || value > this.node.playbackRate.maxValue ) {

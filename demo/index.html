@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="" lang="en-GB">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="An easy to use and powerful Web Audio API wrapper for controlling audio on the web" />
+    <meta name="keywords" content="audio,web-audio-api,javascript,js,audibly" />
+    <title>Audibly | An easy to use and powerful Web Audio API wrapper for controlling audio on the web</title>
+    <link rel="stylesheet" type="text/css" href="/css/audibly.css">
+</head>
+<body class="">
+    <main class="wrap">
+       
+        <section>
+
+            <h3>AudiblyAudioBufferSourceNode</h3>
+            <p>The AudioBufferSourceNode interface represents an audio source consisting of in-memory audio data, stored in an AudioBuffer. It is an AudioNode that acts as an audio source.</p>
+            <p><strong>Example</strong></p>
+            <div class="center group">
+                <span class="left">0</span>
+                <span id="current-playback-rate">1</span>
+                <span class="right">2</span>
+            </div>
+            <p>
+                <input type="range" id="playback-rate" name="playback-rate" min="0" max="2" vaue="1" step="0.1" />
+            </p>
+            <p>
+                <button id="buff-play" class="btn" disabled>PLAY</button>
+                <button id="buff-stop" class="btn">STOP</button>
+            </p>
+
+            <p><strong>Code</strong></p>
+
+            <pre class="language-javascript"><code class="language-javascript">var node;
+
+var bind = function( node ) {
+
+    document.querySelector('#buff-play').removeAttribute('disabled');
+
+    node.connect();
+
+    document.querySelector('#playback-rate').addEventListener('change', function() {
+        document.querySelector('#current-playback-rate').innerHTML = this.value;
+        node.setPlaybackRate(this.value);
+    });
+
+    document.querySelector('#buff-play').addEventListener('click', function() {
+        node.start(0);
+    });
+
+    document.querySelector('#buff-stop').addEventListener('click', function() {
+        node.stop();
+    });
+
+}
+
+buffer = new AudiblyAudioBufferSourceNode({
+    url: '/audio/music-loop.wav',
+    playbackRate: 1,
+    loop: true
+}).then( bind, function( error ) {
+    console.log(error)
+} );</code></pre>
+
+        </section>
+
+        <section>
+
+            <h3>AudiblyOscillatorNode</h3>
+            <p>The OscillatorNode interface represents a periodic waveform, such as a sine or triangle wave. It is an AudioNode audio-processing module that causes a given frequency of wave to be created.</p>
+            <p><strong>Example</strong></p>
+            <div class="center group">
+                <span class="left">-22050</span>
+                <span id="oscillator-current-frequency">1</span>
+                <span class="right">22050</span>
+            </div>
+            <p>
+                <input type="range" id="oscillator-frequency" name="oscillator-frequency" min="-22050" max="22050" vaue="440" step="50" />
+            </p>
+            <p>
+                <button id="oscillator-play" class="btn">PLAY</button>
+                <button id="oscillator-stop" class="btn">STOP</button>
+                <span class="right">
+                    Change wave shape 
+                    <select id="oscillator-type">
+                        <option selected>sine</option>
+                        <option>square</option>
+                        <option>sawtooth</option>
+                        <option>triangle</option>
+                    </select>
+                </span>
+            </p>
+            <p><strong>Code</strong></p>
+            <pre class="language-javascript"><code class="language-javascript">var frequency = 440;
+
+var oscNode = new AudiblyOscillatorNode({
+    frequency: frequency,
+    type: 'sine'
+});
+
+oscNode.connect();
+
+document.querySelector('#oscillator-frequency').addEventListener('change', function() {
+    document.querySelector('#oscillator-current-frequency').innerHTML = this.value;
+    oscNode.setFrequency(this.value);
+});
+
+document.querySelector('#oscillator-play').addEventListener('click', function() {
+    console.log("start")
+    oscNode.start();
+});
+
+document.querySelector('#oscillator-stop').addEventListener('click', function() {
+    oscNode.stop();
+});
+
+document.querySelector('#oscillator-type').addEventListener('change', function(e) {
+    oscNode.setType( this.value );
+});</code></pre>
+
+        </section>
+
+    </main>
+    <script type="text/javascript" src="/js/audibly.js"></script>
+    <script type="text/javascript">
+
+        var sources = {};
+        var playback = 1;
+        var node;
+
+        var bind = function( node ) {
+
+            document.querySelector('#buff-play').removeAttribute('disabled');
+
+            node.connect();
+
+            document.querySelector('#playback-rate').addEventListener('change', function() {
+                document.querySelector('#current-playback-rate').innerHTML = this.value;
+                node.setPlaybackRate(this.value);
+            });
+
+            document.querySelector('#buff-play').addEventListener('click', function() {
+                node.start(0);
+            });
+
+            document.querySelector('#buff-stop').addEventListener('click', function() {
+                node.stop();
+                document.querySelector('#buff-play').setAttribute('disabled', 'disabled');
+            });
+
+        }
+
+        buffer = new AudiblyAudioBufferSourceNode({
+            url: '/audio/music-loop.wav',
+            playbackRate: playback,
+            loop: true
+        }).then( bind, function( error ) {
+            console.log(error)
+        } );
+        
+
+        // Oscillator node
+
+        var frequency = 440;
+
+        var oscNode = new AudiblyOscillatorNode({
+            frequency: frequency,
+            type: 'sine'
+        });
+
+        oscNode.connect();
+
+        document.querySelector('#oscillator-frequency').addEventListener('change', function() {
+            document.querySelector('#oscillator-current-frequency').innerHTML = this.value;
+            oscNode.setFrequency(this.value);
+        });
+
+        document.querySelector('#oscillator-play').addEventListener('click', function() {
+            console.log("start")
+            oscNode.start();
+        });
+
+        document.querySelector('#oscillator-stop').addEventListener('click', function() {
+            oscNode.stop();
+            document.querySelector('#oscillator-play').setAttribute('disabled', 'disabled');
+        });
+
+        document.querySelector('#oscillator-type').addEventListener('change', function(e) {
+            oscNode.setType( this.value );
+        });
+
+        // var audibly = new Audibly({
+        //     audio: [
+        //         {
+        //             id: 1,
+        //             url: '/audio/music-loop.wav'
+        //         }
+        //     ],
+        //     callback: function() {
+                
+        //         for( var id in this.buffers ) {
+        //             var buffer = this.buffers[id];
+
+        //             sources[id] = new AudiblyAudioBufferSourceNode({
+        //                 playbackRate: playback,
+        //                 buffer: buffer,
+        //                 loop: false
+        //             });
+
+        //             sources[id]
+        //                 .connect( 
+        //                     new AudiblyDelayNode({
+        //                         maxDelayTime: 5,
+        //                         delayTime: 0.5
+        //                     }).node
+        //                 )
+        //                 .connect(
+        //                     new AudiblyDelayNode({
+        //                         maxDelayTime: 5,
+        //                         delayTime: 1.5
+        //                     }).node
+        //                 )
+        //                 .connect();
+
+        //             // sources[id].connect();
+        //             // connect source node to convolverGain
+        //             // var convolverGain = new AudiblyGainNode({
+        //             //     gain: 40
+        //             // })
+        //             // sources[ id ].connect( convolverGain.node )
+
+        //             // // connect source node to master gain
+
+        //             // var masterGain = new AudiblyGainNode({
+        //             //     gain: 20
+        //             // })
+
+        //             // sources[ id ].connect(masterGain.node);
+
+        //             // // connect master gain to master compression
+        //             // var masterCompression = new AudiblyDynamicsCompressorNode({
+        //             //     threshold: -40,
+        //             //     knee: 0.5,
+        //             //     ratio: 7,
+        //             //     attack: 0.5,
+        //             //     release: 0.5
+        //             // })
+        //             // masterGain.connect(masterCompression.node);
+
+        //             // // connect master compression to destination
+        //             // masterCompression.connect();
+
+        //             // var conv = new AudiblyConvolverNode({
+        //             //     buffer: buffer,
+        //             //     normalise: true
+        //             // });
+
+        //             // console.log(conv);
+
+                    
+                    
+
+        //             // sources[ id ].connect(conv.node);
+        //             // conv.connect();
+        //         }
+
+        //     }
+        // });
+
+        // Biquad filter node
+
+        // var biquad = new AudiblyBiquadFilterNode({
+        //     frequency: frequency,
+        //     type: 'lowpass',
+        //     detune: 18000,
+        //     Q: 3,
+        //     gain: 300
+        // });
+
+        // biquad.connect();
+
+        // console.log(biquad);
+
+
+        // var delay = new AudiblyDelayNode({
+        //     maxDelayTime: 5,
+        //     delayTime: 0.5
+        // });
+
+        // delay.setDelayTime(4);
+
+        // console.log(delay);
+
+        // var dynamics = new AudiblyDynamicsCompressorNode({
+            // threshold: -40,
+            // knee: 0.5,
+            // ratio: 7,
+            // attack: 0.5,
+            // release: 0.5
+        // });
+
+        // console.log(dynamics);
+
+        // var gain = new AudiblyGainNode({
+        //     gain: 40
+        // });
+
+        // console.log(gain);
+
+        // var panner = new AudiblyStereoPannerNode({
+        //     pan: 0.8
+        // });
+
+        // console.log(panner);
+
+        // var wave = new AudiblyWaveShaperNode({
+        //     curve: new Float32Array(2),
+        //     oversample: '4x'
+        // });
+
+        // console.log(wave);
+
+    </script>
+</body>
+</html>

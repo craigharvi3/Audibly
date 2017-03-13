@@ -15,7 +15,8 @@ var del = require('del');
 // Clean JS task
 gulp.task('clean:js', function() {
 	return del([
-		'dist/js'
+		'dist/js',
+		'demo/js'
 	]);
 });
 
@@ -24,6 +25,7 @@ gulp.task('clean:js', function() {
 gulp.task('webpack', [ 'clean:js' ], function( uglify ) {
 	return gulp.src('src/js/**/*')
 		.pipe(webpack( require('./configs/webpack.config.js') ))
+		.pipe(gulp.dest('demo/js/'))
 		.pipe(gulp.dest('dist/js/'));
 });
 
@@ -32,7 +34,9 @@ gulp.task('webpack', [ 'clean:js' ], function( uglify ) {
 gulp.task('uglifyjs', [ 'webpack' ], function() {
 	gulp.src('dist/js/audibly.js')
 		.pipe( uglify() )
-		.pipe( gulp.dest('dist/js/') );
+		.pipe( rename( { basename: 'audibly.min' } ) )
+		.pipe( gulp.dest('dist/js/') )
+		.pipe( gulp.dest('demo/js/') );
 });
 
 
@@ -48,7 +52,8 @@ gulp.task('js', [ 'webpack' ], function() {
 // Clean CSS task
 gulp.task('clean:css', function() {
 	return del([
-		'dist/css'
+		'dist/css',
+		'demo/css'
 	]);
 });
 
@@ -61,7 +66,8 @@ gulp.task('sass', [ 'clean:css' ], function() {
 		} ) )
 		.on('error', sass.logError)
 		.pipe( rename( { basename: 'audibly' } ) )
-		.pipe( gulp.dest('dist/css/') );
+		.pipe( gulp.dest('dist/css/') )
+		.pipe( gulp.dest('demo/css/') );
 });
 
 
@@ -69,7 +75,9 @@ gulp.task('sass', [ 'clean:css' ], function() {
 gulp.task('nanocss', [ 'sass' ], function() {
 	gulp.src('dist/css/audibly.css')
 		.pipe( nano() )
-		.pipe( gulp.dest('dist/css/') );
+		.pipe( rename( { basename: 'audibly.min' } ) )
+		.pipe( gulp.dest('dist/css/') )
+		.pipe( gulp.dest('demo/css/') );
 });
 
 
@@ -85,7 +93,7 @@ gulp.task('css', [  ], function() {
 // Spins up a server
 gulp.task('serve', function() {
   connect.server({
-  	root: 'dist',
+  	root: 'demo',
   	port: 8080,
   	livereload: true
   });
