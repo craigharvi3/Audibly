@@ -16,31 +16,33 @@ import AudiblyDelayNode from 'API/Audibly/Node/Filter/AudiblyDelayNode';
 import AudiblyDynamicsCompressorNode from 'API/Audibly/Node/Filter/AudiblyDynamicsCompressorNode';
 import AudiblyGainNode from 'API/Audibly/Node/Filter/AudiblyGainNode';
 import AudiblyStereoPannerNode from 'API/Audibly/Node/Filter/AudiblyStereoPannerNode';
-import AudiblyWaveShaperNode from 'API/Audibly/Node/Filter/AudiblyWaveShaperNode';
 
-window.AudiblyContext = new AudiblyContext();
-window.AudiblyNode = AudiblyNode;
-window.AudiblyAudioBufferSourceNode = AudiblyAudioBufferSourceNode;
-window.AudiblyOscillatorNode = AudiblyOscillatorNode;
-window.AudiblyBiquadFilterNode = AudiblyBiquadFilterNode;
-window.AudiblyConvolverNode = AudiblyConvolverNode;
-window.AudiblyDelayNode = AudiblyDelayNode;
-window.AudiblyDynamicsCompressorNode = AudiblyDynamicsCompressorNode;
-window.AudiblyGainNode = AudiblyGainNode;
-window.AudiblyStereoPannerNode = AudiblyStereoPannerNode;
-window.AudiblyWaveShaperNode = AudiblyWaveShaperNode;
-window.Audibly = class Audibly {
+window.Audibly = {
+	Context: new AudiblyContext(),
+	Node: AudiblyNode,
+	BufferSource: AudiblyAudioBufferSourceNode,
+	Oscillator: AudiblyOscillatorNode,
+	Filter: AudiblyBiquadFilterNode,
+	Reverb: AudiblyConvolverNode,
+	Delay: AudiblyDelayNode,
+	Compressor: AudiblyDynamicsCompressorNode,
+	Gain: AudiblyGainNode,
+	Panner: AudiblyStereoPannerNode
+};
+
+window.Audibly.Base = class Audibly {
 
 
 	/**
    * Create a audibly instance.
    * @param {array} audio - array of audio objects ({id: 1, url: 'http://audio.com/2.wav'}).
    */
-	constructor( options={} ) {
+	constructor( options={}, context=window.Audibly.Context ) {
 
 
 		// Setup variables
 		this.options = options;
+		this.context = context;
 		this.buffers = {};
 
 

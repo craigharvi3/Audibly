@@ -21,7 +21,7 @@ class AudiblyAudioBufferSourceNode extends AudiblyNode {
 	 */
 	constructor( options={} ) {
 
-		let node = window.AudiblyContext.createBufferSource();
+		let node = window.Audibly.Context.createBufferSource();
 
 		super( options, node );
 
@@ -39,7 +39,7 @@ class AudiblyAudioBufferSourceNode extends AudiblyNode {
 
 			request.onload = () => {
 
-				window.AudiblyContext.decodeAudioData( request.response )
+				window.Audibly.Context.decodeAudioData( request.response )
 					.then( ( decodedData ) => {
 
 						this.node.buffer = decodedData;

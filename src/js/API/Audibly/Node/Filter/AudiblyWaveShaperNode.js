@@ -23,7 +23,7 @@ class AudiblyWaveShaperNode extends AudiblyNode {
 	constructor( options={} ) {
 
 		// Wave shaper node
-		let node = window.AudiblyContext.createWaveShaper();
+		let node = window.Audibly.Context.createWaveShaper();
 
 		// Check options
 		if ( options.curve ) {

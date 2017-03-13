@@ -27,12 +27,12 @@ class AudiblyDelayNode extends AudiblyNode {
 		if ( options.maxDelayTime ) {
 			try {
 				// Delay node
-				node = window.AudiblyContext.createDelay( options.maxDelayTime );
+				node = window.Audibly.Context.createDelay( options.maxDelayTime );
 			} catch ( e ) {
 				throw new Exception( 'AudiblyDelayNode', 'Invalid \'maxDelayTime\' option passed in.', e );
 			}
 		} else {
-			node = window.AudiblyContext.createDelay();
+			node = window.Audibly.Context.createDelay();
 		}
 
 		if ( options.delayTime ) {

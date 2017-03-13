@@ -21,7 +21,7 @@ class AudiblyStereoPannerNode extends AudiblyNode {
 	constructor( options={} ) {
 
 		// Stereo Panner node
-		let node = window.AudiblyContext.createStereoPanner();
+		let node = window.Audibly.Context.createStereoPanner();
 
 		// Check options
 		if ( options.pan ) {

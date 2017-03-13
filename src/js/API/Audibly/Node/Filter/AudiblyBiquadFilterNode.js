@@ -26,7 +26,7 @@ class AudiblyBiquadFilterNode extends AudiblyNode {
 	constructor( options={} ) {
 
 		// BiquadFilter node
-		let node = window.AudiblyContext.createBiquadFilter();
+		let node = window.Audibly.Context.createBiquadFilter();
 
 		// Check options
 		if ( options.frequency ) {

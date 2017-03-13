@@ -29,7 +29,7 @@ class AudiblyNode {
    * Connects to supplied destination node
    * @param {object} options
    */
-	connect( destination=window.AudiblyContext.destination ) {
+	connect( destination=window.Audibly.Context.destination ) {
 		try {
 			this.node.connect( destination );
 			return this;

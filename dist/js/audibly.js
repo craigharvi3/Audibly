@@ -97,26 +97,24 @@
 	
 	var _AudiblyStereoPannerNode2 = _interopRequireDefault(_AudiblyStereoPannerNode);
 	
-	var _AudiblyWaveShaperNode = __webpack_require__(14);
-	
-	var _AudiblyWaveShaperNode2 = _interopRequireDefault(_AudiblyWaveShaperNode);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	window.AudiblyContext = new _AudiblyContext2.default();
-	window.AudiblyNode = _AudiblyNode2.default;
-	window.AudiblyAudioBufferSourceNode = _AudiblyAudioBufferSourceNode2.default;
-	window.AudiblyOscillatorNode = _AudiblyOscillatorNode2.default;
-	window.AudiblyBiquadFilterNode = _AudiblyBiquadFilterNode2.default;
-	window.AudiblyConvolverNode = _AudiblyConvolverNode2.default;
-	window.AudiblyDelayNode = _AudiblyDelayNode2.default;
-	window.AudiblyDynamicsCompressorNode = _AudiblyDynamicsCompressorNode2.default;
-	window.AudiblyGainNode = _AudiblyGainNode2.default;
-	window.AudiblyStereoPannerNode = _AudiblyStereoPannerNode2.default;
-	window.AudiblyWaveShaperNode = _AudiblyWaveShaperNode2.default;
-	window.Audibly = function () {
+	window.Audibly = {
+		Context: new _AudiblyContext2.default(),
+		Node: _AudiblyNode2.default,
+		BufferSource: _AudiblyAudioBufferSourceNode2.default,
+		Oscillator: _AudiblyOscillatorNode2.default,
+		Filter: _AudiblyBiquadFilterNode2.default,
+		Reverb: _AudiblyConvolverNode2.default,
+		Delay: _AudiblyDelayNode2.default,
+		Compressor: _AudiblyDynamicsCompressorNode2.default,
+		Gain: _AudiblyGainNode2.default,
+		Panner: _AudiblyStereoPannerNode2.default
+	};
+	
+	window.Audibly.Base = function () {
 	
 		/**
 	   * Create a audibly instance.
@@ -124,11 +122,13 @@
 	   */
 		function Audibly() {
 			var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+			var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : window.Audibly.Context;
 	
 			_classCallCheck(this, Audibly);
 	
 			// Setup variables
 			this.options = options;
+			this.context = context;
 			this.buffers = {};
 	
 			// Process options
@@ -397,7 +397,7 @@
 		/**
 	   * Create a Downloader.
 	   */
-		function Downloader(audibly, completeCB) {
+		function Downloader(audibly, completeCB, context) {
 			var _this = this;
 	
 			_classCallCheck(this, Downloader);
@@ -424,7 +424,7 @@
 	
 				request.onload = function () {
 					// Asynchronously decode the audio file data in request.response
-					window.AudiblyContext.decodeAudioData(request.response, _this.success.bind(_this, _this.audibly.options.audio[i].id), _this.error);
+					context.decodeAudioData(request.response, _this.success.bind(_this, _this.audibly.options.audio[i].id), _this.error);
 				};
 	
 				request.onerror = function () {
@@ -522,7 +522,7 @@
 		_createClass(AudiblyNode, [{
 			key: 'connect',
 			value: function connect() {
-				var destination = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.AudiblyContext.destination;
+				var destination = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.Audibly.Context.destination;
 	
 				try {
 					this.node.connect(destination);
@@ -616,7 +616,7 @@
 	
 			_classCallCheck(this, AudiblyAudioBufferSourceNode);
 	
-			var node = window.AudiblyContext.createBufferSource();
+			var node = window.Audibly.Context.createBufferSource();
 	
 			var _this = _possibleConstructorReturn(this, (AudiblyAudioBufferSourceNode.__proto__ || Object.getPrototypeOf(AudiblyAudioBufferSourceNode)).call(this, options, node));
 	
@@ -636,7 +636,7 @@
 	
 				request.onload = function () {
 	
-					window.AudiblyContext.decodeAudioData(request.response).then(function (decodedData) {
+					window.Audibly.Context.decodeAudioData(request.response).then(function (decodedData) {
 	
 						_this.node.buffer = decodedData;
 	
@@ -743,7 +743,7 @@
 			_classCallCheck(this, AudiblyOscillatorNode);
 	
 			// Oscillator node
-			var node = window.AudiblyContext.createOscillator();
+			var node = window.Audibly.Context.createOscillator();
 	
 			// Check options
 			if (options.frequency) {
@@ -861,7 +861,7 @@
 			_classCallCheck(this, AudiblyBiquadFilterNode);
 	
 			// BiquadFilter node
-			var node = window.AudiblyContext.createBiquadFilter();
+			var node = window.Audibly.Context.createBiquadFilter();
 	
 			// Check options
 			if (options.frequency) {
@@ -955,7 +955,7 @@
 			_classCallCheck(this, AudiblyConvolverNode);
 	
 			// Convolver node
-			var node = window.AudiblyContext.createConvolver();
+			var node = window.Audibly.Context.createConvolver();
 	
 			// Check options
 			if (options.buffer) {
@@ -1033,12 +1033,12 @@
 			if (options.maxDelayTime) {
 				try {
 					// Delay node
-					node = window.AudiblyContext.createDelay(options.maxDelayTime);
+					node = window.Audibly.Context.createDelay(options.maxDelayTime);
 				} catch (e) {
 					throw new _Exception2.default('AudiblyDelayNode', 'Invalid \'maxDelayTime\' option passed in.', e);
 				}
 			} else {
-				node = window.AudiblyContext.createDelay();
+				node = window.Audibly.Context.createDelay();
 			}
 	
 			if (options.delayTime) {
@@ -1127,7 +1127,7 @@
 			_classCallCheck(this, AudiblyDynamicsCompressorNode);
 	
 			// DynamicsCompresso node
-			var node = window.AudiblyContext.createDynamicsCompressor();
+			var node = window.Audibly.Context.createDynamicsCompressor();
 	
 			// Check options
 			if (options.threshold) {
@@ -1315,7 +1315,7 @@
 			_classCallCheck(this, AudiblyGainNode);
 	
 			// Gain node
-			var node = window.AudiblyContext.createGain();
+			var node = window.Audibly.Context.createGain();
 	
 			// Check options
 			if (options.gain) {
@@ -1402,7 +1402,7 @@
 			_classCallCheck(this, AudiblyStereoPannerNode);
 	
 			// Stereo Panner node
-			var node = window.AudiblyContext.createStereoPanner();
+			var node = window.Audibly.Context.createStereoPanner();
 	
 			// Check options
 			if (options.pan) {
@@ -1441,82 +1441,6 @@
 	}(_AudiblyNode3.default);
 	
 	module.exports = AudiblyStereoPannerNode;
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _AudiblyNode2 = __webpack_require__(5);
-	
-	var _AudiblyNode3 = _interopRequireDefault(_AudiblyNode2);
-	
-	var _Exception = __webpack_require__(3);
-	
-	var _Exception2 = _interopRequireDefault(_Exception);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Class representing an AudiblyWaveShaperNode
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Wrapper for WaveShaperNode - https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @author Craig Harvie <craig@craigharvie.me>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @description
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * The WaveShaperNode interface represents a non-linear distorter.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * It is an AudioNode that use a curve to apply a waveshaping distortion to t
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * he signal. Beside obvious distortion effects, it is often used to add a
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * warm feeling to the signal.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var AudiblyWaveShaperNode = function (_AudiblyNode) {
-		_inherits(AudiblyWaveShaperNode, _AudiblyNode);
-	
-		/**
-	   * Create an AudiblyWaveShaperNode instance.
-	   * @param {object} options
-	   */
-		function AudiblyWaveShaperNode() {
-			var _ret;
-	
-			var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	
-			_classCallCheck(this, AudiblyWaveShaperNode);
-	
-			// Wave shaper node
-			var node = window.AudiblyContext.createWaveShaper();
-	
-			// Check options
-			if (options.curve) {
-				try {
-					node.curve = options.curve;
-				} catch (e) {
-					throw new _Exception2.default('AudiblyWaveShaperNode', 'Invalid \'curve\' option passed in.', e);
-				}
-			}
-	
-			if (options.oversample) {
-				try {
-					node.oversample = options.oversample;
-				} catch (e) {
-					throw new _Exception2.default('AudiblyWaveShaperNode', 'Invalid \'oversample\' option passed in.', e);
-				}
-			}
-	
-			var _this = _possibleConstructorReturn(this, (AudiblyWaveShaperNode.__proto__ || Object.getPrototypeOf(AudiblyWaveShaperNode)).call(this, options, node));
-	
-			return _ret = _this, _possibleConstructorReturn(_this, _ret);
-		}
-	
-		return AudiblyWaveShaperNode;
-	}(_AudiblyNode3.default);
-	
-	module.exports = AudiblyWaveShaperNode;
 
 /***/ }
 /******/ ]);

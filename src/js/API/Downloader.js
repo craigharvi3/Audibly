@@ -11,7 +11,7 @@ class Downloader {
 	/**
    * Create a Downloader.
    */
-	constructor( audibly, completeCB ) {
+	constructor( audibly, completeCB, context ) {
 
 		this.audibly = audibly;
 		// Keep track of how many we have downloaded
@@ -34,7 +34,7 @@ class Downloader {
 
 			request.onload = () => {
 				// Asynchronously decode the audio file data in request.response
-				window.AudiblyContext.decodeAudioData( request.response, this.success.bind( this, this.audibly.options.audio[ i ].id ), this.error );
+				context.decodeAudioData( request.response, this.success.bind( this, this.audibly.options.audio[ i ].id ), this.error );
 			};
 
 			request.onerror = () => {

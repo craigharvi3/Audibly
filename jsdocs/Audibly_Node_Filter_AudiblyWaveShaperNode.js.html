@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Audibly/Node/Filter/AudiblyWaveShaperNode.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,71 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Audibly/Node/Filter/AudiblyWaveShaperNode.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Class representing an AudiblyWaveShaperNode
+ * Wrapper for WaveShaperNode - https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode
+ * @author Craig Harvie &lt;craig@craigharvie.me>
+ *
+ * @description
+ * The WaveShaperNode interface represents a non-linear distorter.
+ * It is an AudioNode that use a curve to apply a waveshaping distortion to t
+ * he signal. Beside obvious distortion effects, it is often used to add a
+ * warm feeling to the signal.
+ */
+
+import AudiblyNode from '../AudiblyNode';
+import Exception from '../../../Exception';
+
+class AudiblyWaveShaperNode extends AudiblyNode {
 
 
-    <h3> </h3>
+	/**
+   * Create an AudiblyWaveShaperNode instance.
+   * @param {object} options
+   */
+	constructor( options={} ) {
+
+		// Wave shaper node
+		let node = window.AudiblyContext.createWaveShaper();
+
+		// Check options
+		if ( options.curve ) {
+			try {
+				node.curve = options.curve;
+			} catch ( e ) {
+				throw new Exception( 'AudiblyWaveShaperNode', 'Invalid \'curve\' option passed in.', e );
+			}
+		}
+
+		if ( options.oversample ) {
+			try {
+				node.oversample = options.oversample;
+			} catch ( e ) {
+				throw new Exception( 'AudiblyWaveShaperNode', 'Invalid \'oversample\' option passed in.', e );
+			}
+		}
+
+		super( options, node );
+
+		return this;
+	}
 
 
+}
 
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = AudiblyWaveShaperNode;
+</code></pre>
+        </article>
+    </section>
 
 
 

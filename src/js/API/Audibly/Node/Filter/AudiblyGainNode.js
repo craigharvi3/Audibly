@@ -22,7 +22,7 @@ class AudiblyGainNode extends AudiblyNode {
 	constructor( options={} ) {
 
 		// Gain node
-		let node = window.AudiblyContext.createGain();
+		let node = window.Audibly.Context.createGain();
 
 		// Check options
 		if ( options.gain ) {

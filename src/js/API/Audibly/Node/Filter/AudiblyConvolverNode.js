@@ -22,7 +22,7 @@ class AudiblyConvolverNode extends AudiblyNode {
 	constructor( options={} ) {
 
 		// Convolver node
-		let node = window.AudiblyContext.createConvolver();
+		let node = window.Audibly.Context.createConvolver();
 
 		// Check options
 		if ( options.buffer ) {

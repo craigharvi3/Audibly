@@ -10,10 +10,12 @@
 </head>
 <body class="">
     <main class="wrap">
+
+        <h1>audibly demo</h1>
        
         <section>
 
-            <h3>AudiblyAudioBufferSourceNode</h3>
+            <h3>BufferSource</h3>
             <p>The AudioBufferSourceNode interface represents an audio source consisting of in-memory audio data, stored in an AudioBuffer. It is an AudioNode that acts as an audio source.</p>
             <p><strong>Example</strong></p>
             <div class="center group">
@@ -54,7 +56,7 @@ var bind = function( node ) {
 
 }
 
-buffer = new AudiblyAudioBufferSourceNode({
+buffer = new Audibly.BufferSource({
     url: './audio/music-loop.wav',
     playbackRate: 1,
     loop: true
@@ -66,7 +68,7 @@ buffer = new AudiblyAudioBufferSourceNode({
 
         <section>
 
-            <h3>AudiblyOscillatorNode</h3>
+            <h3>Oscillator</h3>
             <p>The OscillatorNode interface represents a periodic waveform, such as a sine or triangle wave. It is an AudioNode audio-processing module that causes a given frequency of wave to be created.</p>
             <p><strong>Example</strong></p>
             <div class="center group">
@@ -93,7 +95,7 @@ buffer = new AudiblyAudioBufferSourceNode({
             <p><strong>Code</strong></p>
             <pre class="language-javascript"><code class="language-javascript">var frequency = 440;
 
-var oscNode = new AudiblyOscillatorNode({
+var oscNode = new Audibly.Oscillator({
     frequency: frequency,
     type: 'sine'
 });
@@ -150,7 +152,7 @@ document.querySelector('#oscillator-type').addEventListener('change', function(e
 
         }
 
-        buffer = new AudiblyAudioBufferSourceNode({
+        buffer = new Audibly.BufferSource({
             url: './audio/music-loop.wav',
             playbackRate: playback,
             loop: true
@@ -163,7 +165,7 @@ document.querySelector('#oscillator-type').addEventListener('change', function(e
 
         var frequency = 440;
 
-        var oscNode = new AudiblyOscillatorNode({
+        var oscNode = new Audibly.Oscillator({
             frequency: frequency,
             type: 'sine'
         });
@@ -201,7 +203,7 @@ document.querySelector('#oscillator-type').addEventListener('change', function(e
         //         for( var id in this.buffers ) {
         //             var buffer = this.buffers[id];
 
-        //             sources[id] = new AudiblyAudioBufferSourceNode({
+        //             sources[id] = new Audibly.BufferSource({
         //                 playbackRate: playback,
         //                 buffer: buffer,
         //                 loop: false

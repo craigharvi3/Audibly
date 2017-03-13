@@ -25,7 +25,7 @@ class AudiblyOscillatorNode extends AudiblyNode {
 	constructor( options={} ) {
 
 		// Oscillator node
-		let node = window.AudiblyContext.createOscillator();
+		let node = window.Audibly.Context.createOscillator();
 
 		// Check options
 		if ( options.frequency ) {
