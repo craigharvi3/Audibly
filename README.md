@@ -11,8 +11,37 @@ Check our demo [here](http://craigharvie.me/audibly/demo/)
 ### API
 Please see our JSDocs [here](http://craigharvie.me/audibly/jsdocs/)
 
-### Documentation
-Coming soon...
+### Node list
+* BufferSource
+* Oscillator
+* Filter
+* Reverb
+* Delay
+* Compressor
+* Gain
+* Panner
 
-### Examples
-Coming soon...
+### Usage
+Include javascript file
+```html
+<script type="text/javascript" src="audibly.min.js"></script>
+```
+
+You will then have access to all nodes listed above. To create a BufferSource node for example, you would call the following:
+
+```javascript
+new Audibly.BufferSource({
+  url: './audio/music-loop.wav',
+  playbackRate: playback,
+  loop: true
+}).then( bind, function( error ) {
+  console.log(error)
+} );
+```
+
+The `BufferSource` will return a promise - since it performs a http request to fetch the raw audio data. The promise success callback will return you the node to use - as shown [here](http://craigharvie.me/audibly/demo/) in the demo.
+
+### Issues
+We very much welcome collaborators so if you see any issues, file an issue [here](https://github.com/craigharvi3/audibly/issues) or create a PR and we'll review.
+
+### Enjoy!
