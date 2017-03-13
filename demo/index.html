@@ -55,7 +55,7 @@ var bind = function( node ) {
 }
 
 buffer = new AudiblyAudioBufferSourceNode({
-    url: '/audio/music-loop.wav',
+    url: './audio/music-loop.wav',
     playbackRate: 1,
     loop: true
 }).then( bind, function( error ) {
@@ -151,7 +151,7 @@ document.querySelector('#oscillator-type').addEventListener('change', function(e
         }
 
         buffer = new AudiblyAudioBufferSourceNode({
-            url: '/audio/music-loop.wav',
+            url: './audio/music-loop.wav',
             playbackRate: playback,
             loop: true
         }).then( bind, function( error ) {
@@ -193,7 +193,7 @@ document.querySelector('#oscillator-type').addEventListener('change', function(e
         //     audio: [
         //         {
         //             id: 1,
-        //             url: '/audio/music-loop.wav'
+        //             url: './audio/music-loop.wav'
         //         }
         //     ],
         //     callback: function() {
