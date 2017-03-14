@@ -32,9 +32,12 @@ You will then have access to all nodes listed above. To create a BufferSource no
 ```javascript
 new Audibly.BufferSource({
   url: './audio/music-loop.wav',
-  playbackRate: playback,
+  playbackRate: 1,
   loop: true
-}).then( bind, function( error ) {
+}).then( function( node ) {
+    node.connect();
+    node.start(0);
+}, function( error ) {
   console.log(error)
 } );
 ```
