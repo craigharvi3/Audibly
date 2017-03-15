@@ -8,9 +8,6 @@ audibly looks to take all the wonderfullness that the Web Audio API offers and a
 
 Check our demo [here](http://craigharvie.me/audibly/demo/)
 
-### API
-Please see our JSDocs [here](http://craigharvie.me/audibly/jsdocs/)
-
 ### Node list
 * BufferSource
 * Oscillator
